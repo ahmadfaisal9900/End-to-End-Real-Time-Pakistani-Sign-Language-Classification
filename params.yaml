@@ -1,0 +1,39 @@
+# Paths configuration
+paths:
+  dataset_dir: "E:\\Projects\\Sign Language\\PkSLMNM"
+  output_dir: "E:\\Projects\\Sign Language\\PkSLMNM_Frames"
+  model_output_dir: "E:\\Projects\\Finished\\Sign Language MLOps\\research\\PkSLMNM_Model"
+  # Add container model path (will be used if environment variable is set)
+  container_model_dir: "/app/models"
+
+# Video processing parameters
+video_processing:
+  n_frames_per_video: 30
+  output_size: [1920, 1080]
+  frame_step: 2
+
+# Image transformation parameters
+image_transform:
+  resize_dimensions: [224, 224]
+
+# Dataset parameters
+dataset:
+  labels: ['bad', 'best', 'glad', 'sad', 'scared', 'stiff', 'surprise']
+
+# Model parameters
+model:
+  model_name_or_path: "google/vit-base-patch16-224-in21k"
+  num_classes: 7
+
+# Training parameters
+training:
+  batch_size: 16
+  epochs: 4
+  learning_rate: 2e-4
+  evaluation_strategy: "steps"
+  eval_steps: 500
+  save_steps: 500
+  logging_steps: 10
+  save_total_limit: 2
+  load_best_model_at_end: true
+  metric_for_best_model: "accuracy"

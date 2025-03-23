@@ -1,0 +1,407 @@
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --secondary-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --gray-color: #95a5a6;
+    --dark-gray: #7f8c8d;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.detection-container, .results-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--dark-gray);
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: 500;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Upload Section */
+.upload-area {
+    border: 2px dashed var(--gray-color);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.upload-area.highlight {
+    border-color: var(--primary-color);
+}
+
+.upload-form input[type="file"] {
+    display: none;
+}
+
+.upload-btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.preview-container {
+    margin-top: 1.5rem;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 4px;
+}
+
+/* Webcam Section */
+.webcam-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#webcam {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.webcam-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 0.75rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--gray-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.control-btn:hover {
+    background-color: var(--dark-gray);
+}
+
+.control-btn.active {
+    background-color: var(--danger-color);
+}
+
+/* Results Section */
+.result-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .result-card {
+        flex-direction: row;
+    }
+}
+
+.result-image-container {
+    flex: 1;
+    text-align: center;
+}
+
+#result-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+}
+
+.result-details {
+    flex: 1;
+    padding: 1rem;
+}
+
+.confidence-bar {
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+#confidence-fill {
+    height: 100%;
+    background-color: var(--success-color);
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+/* Buttons */
+.detect-btn, .back-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.detect-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.detect-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.detect-btn:disabled {
+    background-color: var(--gray-color);
+    cursor: not-allowed;
+}
+
+.back-btn {
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+}
+
+.back-btn:hover {
+    background-color: #dde4e6;
+}
+
+/* Loading Spinner */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utilities */
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+/* Real-time detection elements */
+.realtime-toggle-container {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.realtime-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.realtime-label {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 4px;
+    align-self: center;
+}
+
+.realtime-fps {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    align-self: flex-end;
+    margin: 10px;
+    border-radius: 4px;
+}
+
+.high-confidence {
+    background-color: rgba(46, 204, 113, 0.7);
+}
+
+.medium-confidence {
+    background-color: rgba(241, 196, 15, 0.7);
+}
+
+.low-confidence {
+    background-color: rgba(231, 76, 60, 0.7);
+}
+
+.webcam-container {
+    position: relative;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Performance stats */
+.performance-stats {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+.fps-counter {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}

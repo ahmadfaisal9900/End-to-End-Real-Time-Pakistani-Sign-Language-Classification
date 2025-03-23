@@ -1,0 +1,35 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.Sign_Language_Classification.pipeline.data_ingestion_pipeline
+    deps:
+      - src/Sign_Language_Classification/pipeline/data_ingestion_pipeline.py
+      - src/Sign_Language_Classification/components/data_ingestion.py
+      - ${paths.dataset_dir}
+    params:
+      - paths.dataset_dir
+      - paths.output_dir
+      - video_processing.n_frames_per_video
+      - video_processing.output_size
+      - video_processing.frame_step
+    outs:
+      - ${paths.output_dir}:
+          persist: true
+
+  model_training:
+    cmd: python -m src.Sign_Language_Classification.pipeline.train_pipeline
+    deps:
+      - src/Sign_Language_Classification/pipeline/train_pipeline.py
+      - src/Sign_Language_Classification/components/data_preparation.py
+      - src/Sign_Language_Classification/components/model_trainer.py
+      - ${paths.output_dir}
+    params:
+      - paths.output_dir
+      - paths.model_output_dir
+      - image_transform.resize_dimensions
+      - dataset.labels
+      - model.model_name_or_path
+      - model.num_classes
+      - training
+    outs:
+      - ${paths.model_output_dir}:
+          persist: true

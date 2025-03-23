@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Detection</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Sign Language Detection</h1>
+        <p>Upload an image or use your webcam to detect sign language gestures</p>
+    </header>
+
+    <main>
+        <section class="detection-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="upload">Upload Image</button>
+                <button class="tab-btn" data-tab="webcam">Use Webcam</button>
+            </div>
+
+            <div class="tab-content active" id="upload-tab">
+                <div class="upload-area" id="drop-area">
+                    <form class="upload-form">
+                        <p>Drop image here or click to select</p>
+                        <input type="file" id="fileInput" accept="image/*">
+                        <label for="fileInput" class="upload-btn">Choose Image</label>
+                    </form>
+                    <div class="preview-container">
+                        <img id="preview" class="hidden" alt="Preview">
+                    </div>
+                </div>
+                <button id="upload-detect-btn" class="detect-btn" disabled>Detect Sign</button>
+            </div>
+
+            <div class="tab-content" id="webcam-tab">
+                <div class="webcam-container">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="webcam-canvas" class="hidden"></canvas>
+                </div>
+                
+                <div class="performance-stats">
+                    <span id="fps-counter" class="fps-counter">0 FPS</span>
+                </div>
+                
+                <div class="webcam-controls">
+                    <button id="start-webcam" class="control-btn">Start Camera</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-container hidden" id="results">
+            <h2>Detection Results</h2>
+            <div class="result-card">
+                <div class="result-image-container">
+                    <img id="result-image" alt="Detected Image">
+                </div>
+                <div class="result-details">
+                    <p><strong>Detected Sign:</strong> <span id="detected-label">-</span></p>
+                    <p><strong>Confidence:</strong> <span id="confidence-score">-</span></p>
+                    <div class="confidence-bar">
+                        <div id="confidence-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <button id="back-btn" class="back-btn">Detect Another</button>
+        </section>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Sign Language Detection API · Developed with FastAPI and TensorFlow</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

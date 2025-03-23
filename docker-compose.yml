@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  sign-language-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sign-language-api:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./research/PkSLMNM_Model:/app/models
+    environment:
+      - MODEL_DIR=/app/models
+    restart: unless-stopped
